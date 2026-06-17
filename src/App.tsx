@@ -421,7 +421,7 @@ function App() {
                     <p className="text-sm text-white/50 leading-relaxed">
                       Nossa receita leva apenas o essencial para conservação:
                       palmito de açaí, água, sal e ácido cítrico. Saudável,
-                      saboroso, suculento e naturalmente sem glúten.
+                      saboroso, suculento e, naturalmente, sem glúten.
                     </p>
                   </div>
                 </div>
@@ -595,7 +595,7 @@ function App() {
               {/* Campo Profissão */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
-                  O que você faz / Profissão atual
+                  Qual sua profissão/ ramo de trabalho?
                 </label>
                 <input
                   type="text"
@@ -610,7 +610,7 @@ function App() {
               {/* Campo Motivação */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
-                  Por que você seria um bom reforço para a equipe?
+                  Como você poderia nos ajudar?
                 </label>
                 <textarea
                   required
