@@ -9,6 +9,8 @@ import {
   Send,
   Package,
   Check,
+  Menu,
+  X,
 } from "lucide-react";
 
 function App() {
@@ -17,6 +19,9 @@ function App() {
   const [idade, setIdade] = useState("");
   const [profissao, setProfissao] = useState("");
   const [motivo, setMotivo] = useState("");
+
+  // Estado para controlar o menu mobile
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Função para processar o formulário e preparar o e-mail
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -30,7 +35,7 @@ function App() {
       `Nome completo: ${nome}\n` +
         `Idade: ${idade} anos\n` +
         `O que faz / Profissão: ${profissao}\n\n` +
-        `Por que gostaria de trabalhar na São Salvador:\n${motivo}`,
+        `Por que gostaria de trabalhar na São Salvador:\n${motivo}`
     );
 
     // Dispara o link mailto nativo
@@ -68,33 +73,73 @@ function App() {
           </span>
         </button>
 
+        {/* Menu Desktop */}
         <nav className="hidden md:flex gap-10 text-xs font-semibold tracking-[0.2em] text-white/60 uppercase">
-          <a
-            href="#produtos"
-            className="hover:text-[#D4AF37] transition-colors no-underline"
-          >
+          <a href="#produtos" className="hover:text-[#D4AF37] transition-colors no-underline">
             Produtos
           </a>
-          <a
-            href="#origem"
-            className="hover:text-[#D4AF37] transition-colors no-underline"
-          >
+          <a href="#origem" className="hover:text-[#D4AF37] transition-colors no-underline">
             Origem
           </a>
-          <a
-            href="#contato"
-            className="hover:text-[#D4AF37] transition-colors no-underline"
-          >
+          <a href="#contato" className="hover:text-[#D4AF37] transition-colors no-underline">
             Contato
           </a>
-          <a
-            href="#trabalhe-conosco"
-            className="hover:text-[#D4AF37] transition-colors no-underline"
-          >
+          <a href="#trabalhe-conosco" className="hover:text-[#D4AF37] transition-colors no-underline">
             Trabalhe Conosco
           </a>
         </nav>
+
+        {/* Botão Menu Mobile */}
+        <button
+          className="md:hidden p-2 bg-transparent border-none cursor-pointer text-white hover:text-[#D4AF37] transition-colors"
+          onClick={() => setIsMobileMenuOpen(true)}
+        >
+          <Menu className="w-6 h-6" />
+        </button>
       </header>
+
+      {/* Janela do Menu Mobile (Flutuante) */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030A05]/95 backdrop-blur-xl animate-fade-in md:hidden">
+          <button
+            className="absolute top-6 right-6 p-2 bg-transparent border-none cursor-pointer text-white/50 hover:text-white transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <X className="w-8 h-8" />
+          </button>
+          
+          <nav className="flex flex-col gap-10 text-center text-lg font-bold tracking-widest text-white uppercase">
+            <a 
+              href="#produtos" 
+              className="hover:text-[#D4AF37] transition-colors no-underline"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Produtos
+            </a>
+            <a 
+              href="#origem" 
+              className="hover:text-[#D4AF37] transition-colors no-underline"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Origem
+            </a>
+            <a 
+              href="#contato" 
+              className="hover:text-[#D4AF37] transition-colors no-underline"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contato
+            </a>
+            <a 
+              href="#trabalhe-conosco" 
+              className="hover:text-[#D4AF37] transition-colors no-underline"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Trabalhe Conosco
+            </a>
+          </nav>
+        </div>
+      )}
 
       {/* Container Principal */}
       <main className="relative z-10 flex flex-col gap-12 pb-32">
