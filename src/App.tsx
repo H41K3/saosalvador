@@ -20,26 +20,53 @@ function App() {
   const [profissao, setProfissao] = useState("");
   const [motivo, setMotivo] = useState("");
 
+  // Estados para o envio do e-mail direto
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   // Estado para controlar o menu mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Função para processar o formulário e preparar o e-mail
-  const handleFormSubmit = (e: React.FormEvent) => {
+  // Função ATUALIZADA para envio direto pelo FormSubmit
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    const emailDestino = "comercialssalvador@gmail.com";
-    const assunto = encodeURIComponent(`Trabalhe Conosco - ${nome}`);
+    try {
+      // Dispara os dados ocultamente para a API do FormSubmit
+      const response = await fetch("https://formsubmit.co/ajax/comercialssalvador@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `Novo Currículo - Trabalhe Conosco: ${nome}`, // Assunto do e-mail
+          Nome: nome,
+          Idade: idade,
+          Profissão: profissao,
+          Motivação: motivo,
+        }),
+      });
 
-    // Monta o corpo do e-mail com quebras de linha formatadas
-    const corpoEmail = encodeURIComponent(
-      `Nome completo: ${nome}\n` +
-        `Idade: ${idade} anos\n` +
-        `O que faz / Profissão: ${profissao}\n\n` +
-        `Por que gostaria de trabalhar na São Salvador:\n${motivo}`,
-    );
-
-    // Dispara o link mailto nativo
-    window.location.href = `mailto:${emailDestino}?subject=${assunto}&body=${corpoEmail}`;
+      if (response.ok) {
+        setIsSuccess(true);
+        // Limpa os campos após enviar
+        setNome("");
+        setIdade("");
+        setProfissao("");
+        setMotivo("");
+      } else {
+        alert("Ocorreu um erro ao enviar. Tente novamente mais tarde.");
+      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      alert("Erro de conexão. Verifique sua internet.");
+    } finally {
+      setIsSubmitting(false);
+      // Volta o botão ao normal após 4 segundos
+      setTimeout(() => setIsSuccess(false), 4000);
+    }
   };
 
   return (
@@ -214,12 +241,16 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full">
-            {/* Produto 1: Pote Grande */}
+            {/* Produto 1: Pote Família */}
             <div className="relative group bg-white/5 border border-white/10 hover:border-[#D4AF37]/50 rounded-[2rem] p-8 backdrop-blur-sm transition-all hover:bg-white/10 flex flex-col">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50%] h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-              <div className="w-full h-40 bg-gradient-to-b from-black/40 to-transparent rounded-2xl mb-8 flex items-center justify-center border border-white/5 group-hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(212,175,55,0.05)]">
-                <Package className="w-16 h-16 text-[#D4AF37]/80 drop-shadow-xl" />
+              <div className="w-full h-60 p-2 rounded-2xl mb-8 flex items-center justify-center group-hover:scale-[1.02] transition-transform overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.05)]">
+                <img
+                  src="/pote-familia.jpg"
+                  alt="Palmito São Salvador Pote Família"
+                  className="w-full h-full object-contain rounded-xl drop-shadow-2xl"
+                />
               </div>
 
               <h3 className="text-2xl font-bold text-white mb-2 tracking-wide">
@@ -264,12 +295,16 @@ function App() {
               </a>
             </div>
 
-            {/* Produto 2: Pote Menor */}
+            {/* Produto 2: Pote Clássico */}
             <div className="relative group bg-white/5 border border-white/10 hover:border-[#10B981]/50 rounded-[2rem] p-8 backdrop-blur-sm transition-all hover:bg-white/10 flex flex-col">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50%] h-[1px] bg-gradient-to-r from-transparent via-[#10B981]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-              <div className="w-full h-40 bg-gradient-to-b from-black/40 to-transparent rounded-2xl mb-8 flex items-center justify-center border border-white/5 group-hover:scale-[1.02] transition-transform shadow-[0_0_30px_rgba(16,185,129,0.05)]">
-                <Package className="w-12 h-12 text-[#10B981]/80 drop-shadow-xl" />
+              <div className="w-full h-60 p-2 rounded-2xl mb-8 flex items-center justify-center group-hover:scale-[1.02] transition-transform overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.05)]">
+                <img
+                  src="/pote-classico.jpg"
+                  alt="Palmito São Salvador Pote Clássico"
+                  className="w-full h-full object-contain rounded-xl drop-shadow-2xl"
+                />
               </div>
 
               <h3 className="text-2xl font-bold text-white mb-2 tracking-wide">
@@ -325,7 +360,7 @@ function App() {
                   Deseja abastecer seu negócio ou dividir com amigos? Além das
                   caixas fechadas padrão, nós montamos{" "}
                   <strong>caixas mistas personalizadas</strong> sob medida para
-                  você (Exemplo: 6 unidades do Família + 12 unidades do
+                  você (Exemplo: 5 unidades do Família + 12 unidades do
                   Clássico).
                 </p>
               </div>
@@ -625,11 +660,24 @@ function App() {
               {/* Botão de Envio */}
               <button
                 type="submit"
-                className="group relative w-full sm:w-auto self-center mt-4 px-10 py-4 bg-gradient-to-r from-[#10B981] to-[#10B981]/80 text-black font-bold rounded-xl overflow-hidden flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95 border-none cursor-pointer"
+                disabled={isSubmitting}
+                className={`group relative w-full sm:w-auto self-center mt-4 px-10 py-4 font-bold rounded-xl overflow-hidden flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95 border-none cursor-pointer ${
+                  isSuccess
+                    ? "bg-green-500 text-white"
+                    : "bg-gradient-to-r from-[#10B981] to-[#10B981]/80 text-black"
+                }`}
               >
-                <Send className="w-4 h-4 text-black" />
-                <span className="tracking-wide text-black">
-                  Enviar Apresentação
+                {isSuccess ? (
+                  <Check className="w-5 h-5 text-white" />
+                ) : (
+                  <Send className="w-4 h-4 text-black" />
+                )}
+                <span className="tracking-wide">
+                  {isSubmitting
+                    ? "Enviando..."
+                    : isSuccess
+                    ? "Enviado com Sucesso! ✅"
+                    : "Enviar Apresentação"}
                 </span>
               </button>
             </form>
