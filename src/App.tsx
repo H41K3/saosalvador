@@ -325,7 +325,7 @@ function App() {
                   Deseja abastecer seu negócio ou dividir com amigos? Além das
                   caixas fechadas padrão, nós montamos{" "}
                   <strong>caixas mistas personalizadas</strong> sob medida para
-                  você (Exemplo: 5 unidades do Família + 12 unidades do
+                  você (Exemplo: 6 unidades do Família + 12 unidades do
                   Clássico).
                 </p>
               </div>
