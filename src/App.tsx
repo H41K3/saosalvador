@@ -3,7 +3,6 @@ import {
   ShoppingBag,
   ArrowRight,
   Sparkles,
-  Phone,
   MapPin,
   Leaf,
   Droplet,
@@ -417,7 +416,11 @@ function App() {
                 className="flex items-center gap-4 p-5 rounded-xl bg-white/5 border border-white/5 hover:border-[#10B981]/50 hover:bg-white/10 transition-all group cursor-pointer text-inherit no-underline"
               >
                 <div className="p-4 rounded-full bg-black/30 group-hover:scale-110 transition-transform flex items-center justify-center">
-                  <Phone className="w-8 h-8 text-[#10B981]" />
+                  <img
+                    src="/phone.svg"
+                    alt="Telefone"
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
                 <div>
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
