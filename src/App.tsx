@@ -3,6 +3,7 @@ import {
   ShoppingBag,
   ArrowRight,
   Sparkles,
+  Phone,
   MapPin,
   Leaf,
   Droplet,
@@ -35,7 +36,7 @@ function App() {
       `Nome completo: ${nome}\n` +
         `Idade: ${idade} anos\n` +
         `O que faz / Profissão: ${profissao}\n\n` +
-        `Por que gostaria de trabalhar na São Salvador:\n${motivo}`
+        `Por que gostaria de trabalhar na São Salvador:\n${motivo}`,
     );
 
     // Dispara o link mailto nativo
@@ -75,16 +76,28 @@ function App() {
 
         {/* Menu Desktop */}
         <nav className="hidden md:flex gap-10 text-xs font-semibold tracking-[0.2em] text-white/60 uppercase">
-          <a href="#produtos" className="hover:text-[#D4AF37] transition-colors no-underline">
+          <a
+            href="#produtos"
+            className="hover:text-[#D4AF37] transition-colors no-underline"
+          >
             Produtos
           </a>
-          <a href="#origem" className="hover:text-[#D4AF37] transition-colors no-underline">
+          <a
+            href="#origem"
+            className="hover:text-[#D4AF37] transition-colors no-underline"
+          >
             Origem
           </a>
-          <a href="#contato" className="hover:text-[#D4AF37] transition-colors no-underline">
+          <a
+            href="#contato"
+            className="hover:text-[#D4AF37] transition-colors no-underline"
+          >
             Contato
           </a>
-          <a href="#trabalhe-conosco" className="hover:text-[#D4AF37] transition-colors no-underline">
+          <a
+            href="#trabalhe-conosco"
+            className="hover:text-[#D4AF37] transition-colors no-underline"
+          >
             Trabalhe Conosco
           </a>
         </nav>
@@ -107,31 +120,31 @@ function App() {
           >
             <X className="w-8 h-8" />
           </button>
-          
+
           <nav className="flex flex-col gap-10 text-center text-lg font-bold tracking-widest text-white uppercase">
-            <a 
-              href="#produtos" 
+            <a
+              href="#produtos"
               className="hover:text-[#D4AF37] transition-colors no-underline"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Produtos
             </a>
-            <a 
-              href="#origem" 
+            <a
+              href="#origem"
               className="hover:text-[#D4AF37] transition-colors no-underline"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Origem
             </a>
-            <a 
-              href="#contato" 
+            <a
+              href="#contato"
               className="hover:text-[#D4AF37] transition-colors no-underline"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contato
             </a>
-            <a 
-              href="#trabalhe-conosco" 
+            <a
+              href="#trabalhe-conosco"
               className="hover:text-[#D4AF37] transition-colors no-underline"
               onClick={() => setIsMobileMenuOpen(false)}
             >
@@ -446,11 +459,11 @@ function App() {
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
                     WhatsApp
                   </p>
-                  <p className="font-medium text-white tracking-wide text-lg">
+                  <p className="font-medium text-white tracking-wide text-[15px] sm:text-lg">
                     +55 (96) 99146-3232
                   </p>
                 </div>
@@ -461,17 +474,13 @@ function App() {
                 className="flex items-center gap-4 p-5 rounded-xl bg-white/5 border border-white/5 hover:border-[#10B981]/50 hover:bg-white/10 transition-all group cursor-pointer text-inherit no-underline"
               >
                 <div className="p-4 rounded-full bg-black/30 group-hover:scale-110 transition-transform flex items-center justify-center">
-                  <img
-                    src="/phone.svg"
-                    alt="Telefone"
-                    className="w-8 h-8 object-contain"
-                  />
+                  <Phone className="w-8 h-8 text-[#10B981]" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
                     Ligação Direta
                   </p>
-                  <p className="font-medium text-white tracking-wide text-lg">
+                  <p className="font-medium text-white tracking-wide text-[15px] sm:text-lg">
                     (96) 99146-3232
                   </p>
                 </div>
@@ -488,11 +497,12 @@ function App() {
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <div>
+                {/* Aqui está o break-all para o e-mail não vazar no celular */}
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
                     E-mail
                   </p>
-                  <p className="font-medium text-white tracking-wide text-lg">
+                  <p className="font-medium text-white tracking-wide text-sm sm:text-lg break-all">
                     comercialssalvador@gmail.com
                   </p>
                 </div>
@@ -511,11 +521,11 @@ function App() {
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
                     Instagram
                   </p>
-                  <p className="font-medium text-white tracking-wide text-lg">
+                  <p className="font-medium text-white tracking-wide text-[15px] sm:text-lg">
                     @palmitosaosalvador
                   </p>
                 </div>
@@ -625,13 +635,13 @@ function App() {
         </section>
       </main>
 
-      {/* RODAPÉ FIXO */}
-      <footer className="fixed bottom-0 left-0 w-full z-50 bg-[#030A05]/90 backdrop-blur-md border-t border-[#10B981]/10 py-3 px-4 flex flex-col md:flex-row justify-center items-center gap-1 md:gap-4 pointer-events-none">
-        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold">
+      {/* RODAPÉ FIXO CENTRALIZADO */}
+      <footer className="fixed bottom-0 left-0 w-full z-50 bg-[#030A05]/95 backdrop-blur-md border-t border-[#10B981]/10 py-3 px-4 flex flex-col md:flex-row justify-center items-center gap-1 md:gap-4 pointer-events-none text-center">
+        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold text-center w-full md:w-auto">
           1ª Tv. das Oliveiras, 31 - Pedrinhas, Macapá - AP, 68903-119
         </p>
         <span className="hidden md:inline text-white/20">•</span>
-        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold">
+        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold text-center w-full md:w-auto">
           CNPJ: 65.814.185/0001-13
         </p>
       </footer>
