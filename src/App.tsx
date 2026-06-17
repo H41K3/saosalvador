@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   ShoppingBag,
   ArrowRight,
@@ -17,8 +17,17 @@ function App() {
   // Estados para armazenar os campos do formulário
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [endereco, setEndereco] = useState("");
   const [profissao, setProfissao] = useState("");
-  const [motivo, setMotivo] = useState("");
+  const [habilidades, setHabilidades] = useState(""); // Atualizado para Habilidades
+
+  // Estado para armazenar o arquivo do currículo
+  const [curriculo, setCurriculo] = useState<File | null>(null);
+
+  // Referência para limpar o input de arquivo depois de enviar
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Estados para o envio do e-mail direto
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,39 +36,59 @@ function App() {
   // Estado para controlar o menu mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Função ATUALIZADA para envio direto pelo FormSubmit
+  // Função para processar o formulário e enviar pelo FormSubmit
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Dispara os dados ocultamente para a API do FormSubmit
-      const response = await fetch("https://formsubmit.co/ajax/comercialssalvador@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      // Usamos FormData em vez de JSON para suportar o envio de arquivos reais
+      const formData = new FormData();
+      formData.append("_subject", `Novo Currículo - Trabalhe Conosco: ${nome}`);
+      formData.append("_captcha", "false"); // Evita que o FormSubmit peça verificação de robô
+      formData.append("Nome", nome);
+      formData.append("Idade", idade);
+      formData.append("E-mail", email);
+      formData.append("Telefone", telefone);
+      formData.append("Endereço", endereco);
+      formData.append("Profissão", profissao);
+      formData.append("Habilidades", habilidades);
+
+      // Anexa o currículo se a pessoa tiver selecionado um
+      if (curriculo) {
+        formData.append("Curriculo_Anexo", curriculo);
+      }
+
+      // Dispara os dados para a rota oficial (sem o /ajax/) para suportar arquivos, mas mantendo a tela estática
+      const response = await fetch(
+        "https://formsubmit.co/comercialssalvador@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+          },
+          body: formData,
         },
-        body: JSON.stringify({
-          _subject: `Novo Currículo - Trabalhe Conosco: ${nome}`, // Assunto do e-mail
-          Nome: nome,
-          Idade: idade,
-          Profissão: profissao,
-          Motivação: motivo,
-        }),
-      });
+      );
 
       if (response.ok) {
         setIsSuccess(true);
         // Limpa os campos após enviar
         setNome("");
         setIdade("");
+        setEmail("");
+        setTelefone("");
+        setEndereco("");
         setProfissao("");
-        setMotivo("");
+        setHabilidades("");
+        setCurriculo(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
       } else {
         alert("Ocorreu um erro ao enviar. Tente novamente mais tarde.");
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       alert("Erro de conexão. Verifique sua internet.");
     } finally {
@@ -627,6 +656,53 @@ function App() {
                 </div>
               </div>
 
+              {/* Campo E-mail e Telefone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
+                    E-mail
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="seuemail@exemplo.com"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
+                    Telefone
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={telefone}
+                    onChange={(e) =>
+                      setTelefone(e.target.value.replace(/[^\d+()\s-]/g, ""))
+                    }
+                    placeholder="+55 (96) 90123-4567"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Campo Endereço */}
+              <div className="flex flex-col gap-2">
+                <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
+                  Endereço Completo
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={endereco}
+                  onChange={(e) => setEndereco(e.target.value)}
+                  placeholder="Rua, Número, Complemento, Cidade - Estado"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm"
+                />
+              </div>
+
               {/* Campo Profissão */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
@@ -637,12 +713,12 @@ function App() {
                   required
                   value={profissao}
                   onChange={(e) => setProfissao(e.target.value)}
-                  placeholder="Ex: Operador de Produção, Vendedor, Logística..."
+                  placeholder="Ex: Vendedor, Logística, Operador de produção..."
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm"
                 />
               </div>
 
-              {/* Campo Motivação */}
+              {/* Campo Habilidades */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
                   Como você poderia nos ajudar?
@@ -650,10 +726,40 @@ function App() {
                 <textarea
                   required
                   rows={4}
-                  value={motivo}
-                  onChange={(e) => setMotivo(e.target.value)}
-                  placeholder="Conte um pouco sobre suas habilidades e por que deseja trabalhar com a São Salvador..."
+                  value={habilidades}
+                  onChange={(e) => setHabilidades(e.target.value)}
+                  placeholder="Conte um pouco sobre suas habilidades e experiências..."
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm resize-none leading-relaxed"
+                />
+              </div>
+
+              {/* Campo Currículo (PDF) */}
+              <div className="flex flex-col gap-2">
+                <label className="text-xs uppercase tracking-widest text-white/50 font-semibold">
+                  Anexar Currículo (PDF, máx. 5MB) - Opcional
+                </label>
+                <input
+                  type="file"
+                  accept=".pdf"
+                  ref={fileInputRef}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (file.size > 5 * 1024 * 1024) {
+                        // 5MB em bytes
+                        alert(
+                          "O arquivo é muito grande. O tamanho máximo é 5MB.",
+                        );
+                        e.target.value = ""; // Reseta o input visualmente
+                        setCurriculo(null);
+                      } else {
+                        setCurriculo(file);
+                      }
+                    } else {
+                      setCurriculo(null);
+                    }
+                  }}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white/70 focus:outline-none focus:border-[#10B981]/50 focus:bg-white/10 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#10B981]/20 file:text-[#10B981] hover:file:bg-[#10B981]/30 file:cursor-pointer cursor-pointer"
                 />
               </div>
 
@@ -676,8 +782,8 @@ function App() {
                   {isSubmitting
                     ? "Enviando..."
                     : isSuccess
-                    ? "Enviado com Sucesso! ✅"
-                    : "Enviar Apresentação"}
+                      ? "Enviado com Sucesso! ✅"
+                      : "Enviar Apresentação"}
                 </span>
               </button>
             </form>
