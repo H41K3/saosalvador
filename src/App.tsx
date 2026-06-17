@@ -140,7 +140,7 @@ function App() {
           </div>
         </section>
 
-        {/* NOVA SEÇÃO: Produtos */}
+        {/* Produtos */}
         <section
           id="produtos"
           className="min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-20 w-full"
@@ -311,11 +311,11 @@ function App() {
                 <div className="p-5 rounded-xl bg-[#10B981]/5 border border-[#10B981]/10 relative">
                   <p className="text-white/60 leading-relaxed text-base italic relative z-10">
                     "Pelas mãos da família Lacerda, nossa história começa nas
-                    margens do Rio Vieirinha, na zona rural de Afuá-PA, de onde
-                    manejamos o açaízeiro de forma inteligente. De lá, nosso
-                    palmito viaja até Macapá-AP para ser distribuído, garantindo
-                    o sabor original, maciez e uma qualidade premium em cada
-                    pote."
+                    margens do Rio Vieirinha, na zona rural de Afuá-PA, onde
+                    manejamos o açaízeiro de forma inteligente e sustentável. De
+                    lá, nosso palmito viaja até Macapá-AP para ser distribuído,
+                    garantindo o sabor original, maciez e uma qualidade premium
+                    em cada pote."
                   </p>
                 </div>
               </div>
@@ -327,12 +327,12 @@ function App() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white tracking-wide mb-1">
-                      De Afuá/PA para o Mundo
+                      De Afuá-PA para o Mundo
                     </h3>
                     <p className="text-sm text-white/50 leading-relaxed">
-                      Extraído com autorização do IBAMA na região amazônica do
-                      Pará e envasado em Macapá, Amapá. Uma logística limpa e
-                      focada em manter a máxima frescura do alimento.
+                      Extraído com autorização do IBAMA, na região amazônica do
+                      Pará e envasado em Macapá-AP. Uma logística limpa e focada
+                      em manter a máxima frescura do alimento.
                     </p>
                   </div>
                 </div>
@@ -346,7 +346,7 @@ function App() {
                       Corte Inteiro
                     </h3>
                     <p className="text-sm text-white/50 leading-relaxed">
-                      Trabalhamos com o miolo perfeito do açaízeiro com puro
+                      Trabalhamos com o miolo perfeito do açaízeiro, com puro
                       corte inteiro. Textura firme por fora e que derrete na
                       boca por dentro.
                     </p>
@@ -364,7 +364,7 @@ function App() {
                     <p className="text-sm text-white/50 leading-relaxed">
                       Nossa receita leva apenas o essencial para conservação:
                       palmito de açaí, água, sal e ácido cítrico. Saudável,
-                      saboroso e naturalmente sem glúten.
+                      saboroso, suculento e naturalmente sem glúten.
                     </p>
                   </div>
                 </div>
@@ -479,7 +479,7 @@ function App() {
           </div>
         </section>
 
-        {/* NOVA SEÇÃO: Trabalhe Conosco */}
+        {/* Trabalhe Conosco */}
         <section
           id="trabalhe-conosco"
           className="min-h-[calc(100vh-80px)] flex flex-col justify-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto scroll-mt-20 w-full"
@@ -491,9 +491,8 @@ function App() {
               Trabalhe Conosco
             </h2>
             <p className="text-white/60 text-center mb-10 max-w-xl mx-auto text-sm font-light">
-              Faça parte da evolução do palmito de açaí. Preencha os campos
-              abaixo para submeter sua apresentação diretamente ao nosso setor
-              comercial.
+              Quer fazer parte do nosso time? Preencha os campos abaixo para
+              enviar sua apresentação diretamente ao nosso setor comercial.
             </p>
 
             <form
