@@ -3,7 +3,6 @@ import {
   ShoppingBag,
   ArrowRight,
   Sparkles,
-  Phone,
   MapPin,
   Leaf,
   Droplet,
@@ -474,7 +473,11 @@ function App() {
                 className="flex items-center gap-4 p-5 rounded-xl bg-white/5 border border-white/5 hover:border-[#10B981]/50 hover:bg-white/10 transition-all group cursor-pointer text-inherit no-underline"
               >
                 <div className="p-4 rounded-full bg-black/30 group-hover:scale-110 transition-transform flex items-center justify-center">
-                  <Phone className="w-8 h-8 text-[#10B981]" />
+                  <img
+                    src="/phone.svg"
+                    alt="Telefone"
+                    className="w-8 h-8 object-contain"
+                  />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
@@ -497,7 +500,6 @@ function App() {
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                {/* Aqui está o break-all para o e-mail não vazar no celular */}
                 <div className="min-w-0 flex-1">
                   <p className="text-xs text-white/50 mb-1 uppercase tracking-widest">
                     E-mail
@@ -635,13 +637,13 @@ function App() {
         </section>
       </main>
 
-      {/* RODAPÉ FIXO CENTRALIZADO */}
-      <footer className="fixed bottom-0 left-0 w-full z-50 bg-[#030A05]/95 backdrop-blur-md border-t border-[#10B981]/10 py-3 px-4 flex flex-col md:flex-row justify-center items-center gap-1 md:gap-4 pointer-events-none text-center">
-        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold text-center w-full md:w-auto">
+      {/* RODAPÉ FIXO CENTRALIZADO E MENOR */}
+      <footer className="fixed bottom-0 left-0 w-full z-50 bg-[#030A05]/95 backdrop-blur-md border-t border-[#10B981]/10 py-1.5 px-4 flex flex-col md:flex-row justify-center items-center gap-0.5 md:gap-4 pointer-events-none text-center">
+        <p className="text-[9px] md:text-[11px] text-white/30 tracking-wider uppercase font-medium text-center w-full md:w-auto">
           1ª Tv. das Oliveiras, 31 - Pedrinhas, Macapá - AP, 68903-119
         </p>
-        <span className="hidden md:inline text-white/20">•</span>
-        <p className="text-[10px] md:text-xs text-white/40 tracking-widest uppercase font-semibold text-center w-full md:w-auto">
+        <span className="hidden md:inline text-white/20 text-[9px]">•</span>
+        <p className="text-[9px] md:text-[11px] text-white/30 tracking-wider uppercase font-medium text-center w-full md:w-auto">
           CNPJ: 65.814.185/0001-13
         </p>
       </footer>
